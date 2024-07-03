@@ -4,6 +4,56 @@
 
 {% block content %}
 
-<h1>カート</h1>
+<div class="container justify-content-center mt-4">
+    <div class="row">
+        <table class="table">
+            <thead class="thead-title">
+            <tr>
+                <th scope="col" class="text-center">商品名</th>
+                <th scope="col" class="text-center">単価</th>
+                <th scope="col" class="text-center">数量</th>
+                <th scope="col" class="text-center">合計金額</th>
+            </tr>
+            </thead>
+            <tbody class="text-center table-group-divider">
+            <tr>
+                <th scope="row">ドリンク</th>
+                <td>１</td>
+                <td>3200円</td>
+                <td>3200円</td>
+            </tr>
+            <tr>
+                <th scope="row">ドリンク</th>
+                <td>１</td>
+                <td>3200円</td>
+                <td>3200円</td>
+            </tr>
+            <tr>
+                <th scope="row">ドリンク</th>
+                <td>１</td>
+                <td>3200円</td>
+                <td>3200円</td>
+            </tr>
+            </tbody>
+
+            <tbody class="text-center table-group-divider">
+                <th></th>
+                <td></td>
+                <td></td>
+                <td>総額:<span>9600円</span></td>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-4">
+            <button type="button" data-mdb-button-init="" data-mdb-ripple-init="" class="btn btn-dark my-4 d-block mx-auto w-100" data-mdb-button-initialized="true">ショッピングを続ける</button>
+        </div>
+
+        <div class="col-4">
+            <button type="button" data-mdb-button-init="" data-mdb-ripple-init="" class="btn btn-dark my-4 d-block mx-auto w-100" data-mdb-button-initialized="true">購入する</button>
+        </div>
+    </div>
+</div>
 
 {% endblock content %}

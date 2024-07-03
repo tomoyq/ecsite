@@ -4,6 +4,42 @@
 
 {% block content %}
 
-<h1>商品詳細</h1>
+<div class="container mt-5 d-flex justify-content-center">
+    <div class="row justify-content-center">
+        <div class="col-5 d-flex justify-content-center bg-dark me-4">
+            <div class="container w-50 bg-white my-auto" style="height: 50%;">
+                <img src="#" alt="">
+            </div>
+        </div>
+
+        <div class="col-5 ms-4">
+            <div class="row">
+                <p>カテゴリ</p>
+
+                <h3>商品名が入ります商品名が入ります商品名が入ります商品名が入ります</h3>
+
+                <div class="d-flex flex-row">
+                    <h4>33,800</h4><span>（税込）送料無料 </span>
+                </div>
+
+                <div class="d-flex flex-row " style="height: 40px;">
+                    <div class="mt-1 me-4">
+                        <p>数量</p>
+                    </div>
+
+                    <select class="form-select w-25">
+                        <option>1</option>
+                    </select>
+                </div>
+
+                <button type="button" data-mdb-button-init="" data-mdb-ripple-init="" class="btn btn-dark my-4 d-block mx-auto w-100" data-mdb-button-initialized="true">購入するにはログインしてください</button>
+            
+                <h4>商品概要</h4>
+
+                <p>商品説明や値段が入ります。商品説明や値段が入ります。商品説明や値段が入ります。商品説明や値段が入ります。</p>
+            </div>
+        </div>
+    </div>
+</div>
 
 {% endblock content %}
