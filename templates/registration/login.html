@@ -3,7 +3,49 @@
 {% block title %}ログイン{% endblock title %}
 
 {% block content %}
+<div class="container">
+  <section class="w-100 p-4 d-flex justify-content-center mt-4 ">
+      <form style="width: 30rem;" class="login-form">
+        <div class="container form-title">
+          <h3 class="text-start mb-4 ms-2">ログイン</h3>
+        </div>
 
-<h1>ログイン</h1>
+        <div class="container w-75">
+          <!-- Email input -->
+          <div data-mdb-input-init="" class="form-outline mb-4" data-mdb-input-initialized="true">
+            <label class="form-label" for="form2Example1" style="margin-left: 0px;">メールアドレス</label>
+            <input type="email" id="form2Example1" class="form-control" placeholder="メールアドレスを入力してください">
+          <div class="form-notch"><div class="form-notch-leading" style="width: 9px;"></div><div class="form-notch-middle" style="width: 88.8px;"></div><div class="form-notch-trailing"></div></div></div>
+
+          <!-- Password input -->
+          <div data-mdb-input-init="" class="form-outline mb-4" data-mdb-input-initialized="true">
+            <label class="form-label" for="form2Example2" style="margin-left: 0px;">パスワード</label>
+            <input type="password" id="form2Example2" class="form-control" placeholder="パスワードを入力してください">
+          <div class="form-notch"><div class="form-notch-leading" style="width: 9px;"></div><div class="form-notch-middle" style="width: 64.8px;"></div><div class="form-notch-trailing"></div></div></div>
+        </div>
+
+        <div class="col d-flex justify-content-center">
+          <!-- Simple link -->
+          <a href="#!" class="link-dark mb-4 ">ユーザID・パスワードを忘れた場合</a>
+        </div>
+
+        <!-- Submit button -->
+        <button type="button" data-mdb-button-init="" data-mdb-ripple-init="" class="btn btn-dark mb-4 d-block mx-auto w-75" data-mdb-button-initialized="true">ログイン</button>
+
+      </form>
+  </section>
+
+  <section class="w-100 p-4 d-flex justify-content-center mt-4">
+    <form style="width: 30rem;" >
+      <div class="container form-title">
+        <h3 class="text-start mb-4 ms-2">会員登録がまだの方はこちら</h3>
+      </div>
+
+      <!-- Submit button -->
+      <button type="button" data-mdb-button-init="" data-mdb-ripple-init="" class="btn btn-dark mb-4 d-block mx-auto w-75" data-mdb-button-initialized="true">新規会員登録（無料）</button>
+
+    </form>
+  </section>
+</div>
 
 {% endblock content %}
