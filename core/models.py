@@ -9,6 +9,9 @@ class Item(models.Model):
     description = models.TextField(blank=True, null=True)
     image = models.ImageField(upload_to='item_images/', blank=True, null=True)
 
+    def __str__(self):
+        return self.name
+
 class CartItem(models.Model):
     item = models.ForeignKey(to=Item, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
