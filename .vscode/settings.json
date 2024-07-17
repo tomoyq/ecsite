@@ -1,3 +1,10 @@
+// mac
+// {
+//     "python.analysis.extraPaths": ["/Users/mitchie/ECsite/django_EC/venv/lib/python3.12/site-packages"],
+// }
+
+
+// windows
 {
-    "python.analysis.extraPaths": ["/Users/mitchie/ECsite/django_EC/venv/lib/python3.12/site-packages"],
+    "python.analysis.extraPaths": ["C:¥Users¥arata¥OneDrive¥デスクトップ¥ECsite¥venv¥Lib¥site-packages"],
 }

@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 
 from django.views.generic.base import TemplateView, RedirectView
@@ -8,7 +9,7 @@ class HomeView(TemplateView):
 class DetailView(TemplateView):
     template_name = 'core/detail.html'
 
-class CartView(TemplateView):
+class CartView(LoginRequiredMixin, TemplateView):
     template_name = 'core/cart.html'
 
 class OrderView(RedirectView):
