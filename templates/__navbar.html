@@ -9,7 +9,7 @@
           {% csrf_token %}
           <button type="submit" class="btn btn-outline-light me-3">ログアウト</button>
         </form>
-        <a href="{% url 'cart' %}" class="btn btn-outline-light"><i class="bi-cart-fill me-1"></i>カート</a>
+        <a href="{% url 'cart' user.id %}" class="btn btn-outline-light"><i class="bi-cart-fill me-1"></i>カート</a>
 
         {% else %}
 

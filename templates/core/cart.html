@@ -6,6 +6,8 @@
 
 <div class="container justify-content-center mt-4">
     <div class="row">
+
+        {% if cart.cart_item.exists %}
         <table class="table">
             <thead class="thead-title">
             <tr>
@@ -15,45 +17,51 @@
                 <th scope="col" class="text-center">合計金額</th>
             </tr>
             </thead>
+
+            {% for cart_item in cart.cart_item.all %}
             <tbody class="text-center table-group-divider">
             <tr>
-                <th scope="row">ドリンク</th>
-                <td>１</td>
-                <td>3200円</td>
-                <td>3200円</td>
+                <td>{{cart_item.item.name}}</td>
+                <td>{{cart_item.quantity}}</td>
+                <td>{{cart_item.item.price}}</td>
+                <td>{{cart_item.total_price}}</td>
             </tr>
-            <tr>
-                <th scope="row">ドリンク</th>
-                <td>１</td>
-                <td>3200円</td>
-                <td>3200円</td>
-            </tr>
-            <tr>
-                <th scope="row">ドリンク</th>
-                <td>１</td>
-                <td>3200円</td>
-                <td>3200円</td>
-            </tr>
+            {% endfor %}
             </tbody>
 
             <tbody class="text-center table-group-divider">
                 <th></th>
                 <td></td>
                 <td></td>
-                <td>総額:<span>9600円</span></td>
+                <td>総額:<span>{{cart.total_price}}</span></td>
             </tbody>
+
         </table>
+
     </div>
 
     <div class="row justify-content-center">
         <div class="col-4">
-            <button type="button" data-mdb-button-init="" data-mdb-ripple-init="" class="btn btn-dark my-4 d-block mx-auto w-100" data-mdb-button-initialized="true">ショッピングを続ける</button>
+            <a href="{% url 'home' %}" class="btn btn-dark my-4 d-block mx-auto w-100">ショッピングを続ける</a>
         </div>
 
         <div class="col-4">
-            <button type="button" data-mdb-button-init="" data-mdb-ripple-init="" class="btn btn-dark my-4 d-block mx-auto w-100" data-mdb-button-initialized="true">購入する</button>
+            <form action="{% url 'order' %}" method="POST">{% csrf_token %}
+                <button type='submit' class="btn btn-dark my-4 d-block mx-auto w-100">購入する</button>
+            </form>
         </div>
     </div>
+
+
+    {% else %}
+
+    <div class="text-center">
+        <p>カートは空です。</p>
+        <a href="{% url 'home' %}" class="btn btn-secondary">商品を探す</a>
+    </div>
+
+    {% endif %}
+
 </div>
 
 {% endblock content %}

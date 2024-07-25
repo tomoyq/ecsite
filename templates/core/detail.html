@@ -6,20 +6,23 @@
 
 <div class="container mt-5 d-flex justify-content-center">
     <div class="row justify-content-center">
-        <div class="col-5 d-flex justify-content-center bg-dark me-4">
-            <div class="container w-50 bg-white my-auto" style="height: 50%;">
-                <img src="#" alt="">
-            </div>
+        <div class="col-6">
+            {% if item.image %}
+            <img src="{{item.image.url}}" alt="{{item.name}}" class="card-img-top mb-5 mb-md-0 rounded-3">
+            {% else %}
+            <img src="" alt="">
+            {% endif %}
         </div>
 
-        <div class="col-5 ms-4">
+        <div class="col-6">
             <div class="row">
+
                 <p>カテゴリ</p>
 
-                <h3>商品名が入ります商品名が入ります商品名が入ります商品名が入ります</h3>
+                <h3>{{item.name}}</h3>
 
                 <div class="d-flex flex-row">
-                    <h4>33,800</h4><span>（税込）送料無料 </span>
+                    <h4>{{item.price}}</h4><span>（税込）送料無料 </span>
                 </div>
 
                 {% if user.is_authenticated %}
@@ -31,9 +34,8 @@
                                 <p>数量</p>
                             </div>
 
-                            <select class="form-select w-25">
-                                <option>1</option>
-                            </select>
+                            <input type="number" name="quantity" class="w-25" name="{{item.name}}" min="1" value="1" required/>
+                            <input type="hidden" name="item_pk" value="{{item.id}}">
                         </div>
 
                         <button type="submit" data-mdb-button-init="" data-mdb-ripple-init="" class="btn btn-dark my-4 d-block mx-auto w-100" data-mdb-button-initialized="true">カートに追加する</button>
@@ -51,7 +53,7 @@
 
                 <h4>商品概要</h4>
 
-                <p>商品説明や値段が入ります。商品説明や値段が入ります。商品説明や値段が入ります。商品説明や値段が入ります。</p>
+                <p>{{item.description}}</p>
             </div>
         </div>
     </div>
