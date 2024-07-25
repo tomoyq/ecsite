@@ -11,7 +11,10 @@
         <div class="row col-5">
             <h3>アカウント作成が完了しました。</h3>
 
-            <button type="submit" class="btn btn-dark my-4 d-block w-75">ログインする</button>
+            <form action="{% url 'login' %}" method="get">
+                {% csrf_token %}
+                <button type="submit"  class="btn btn-dark my-4 d-block w-75">ログインする</button>\
+            </form>
 
         </div>
 
