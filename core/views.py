@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.db.models.base import Model as Model
@@ -8,7 +9,11 @@ from django.urls import reverse_lazy
 from django.views.generic import DetailView, ListView
 from django.views.generic.base import TemplateView, View
 
+import stripe
+
 from .models import Item, CartItem, Order
+
+stripe.api_key = settings.STRIPE_SECRET_KEY
 
 User = get_user_model()
 
@@ -59,7 +64,32 @@ class OrderView(View):
             order_obj.order_item.add(cart_item)
         order_cart.cart_item.clear()
 
-        return redirect(reverse_lazy('success'))
+        line_items = []
+        for order_item in order_obj.order_item.all():
+            line_item = {
+                'price_data': {
+                    'currency': 'jpy',
+                    'unit_amount': order_item.item.price,
+                    'product_data': {
+                        'name': order_item.item.name,
+                    }
+                },
+                'quantity': order_item.quantity,
+            }
+            line_items.append(line_item)
+
+        try:
+            checkout_settion = stripe.checkout.Session.create(
+                line_items = line_items,
+                mode = 'payment',
+                phone_number_collection = {'enabled': True},
+                shipping_address_collection = {'allowed_countries': ['JP']},
+                success_url = settings.MYSITE_DOMAIN + '/success/',
+            )
+        except Exception as e:
+            return str(e)
+
+        return redirect(checkout_settion.url)
 
 class SuccessView(TemplateView):
     template_name = 'core/success.html'
