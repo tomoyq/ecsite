@@ -6,11 +6,12 @@ from django.db.models.query import QuerySet
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 
-from django.views.generic import DetailView, ListView
+from django.views.generic import DeleteView, DetailView, ListView
 from django.views.generic.base import TemplateView, View
 
 import stripe
 
+from .forms import SerchForm
 from .models import Item, CartItem, Order
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -25,6 +26,19 @@ class OnlyYouMixin(UserPassesTestMixin):
 class HomeView(ListView):
     template_name = 'core/home.html'
     model = Item
+    paginate_by = 6
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = SerchForm
+        return context
+    
+    def get_queryset(self):
+        items = super().get_queryset()
+        q_category = self.request.GET.get('category')
+        if q_category is not None:
+            items = items.filter(category=q_category)
+        return items
 
 class DetailView(DetailView):
     template_name = 'core/detail.html'
@@ -51,6 +65,20 @@ class CartView(LoginRequiredMixin, OnlyYouMixin, DetailView):
     def get_object(self, queryset=None):
         user = super().get_object(queryset)
         return user.cart
+    
+class DeleteCartItemView(LoginRequiredMixin, OnlyYouMixin, DeleteView):
+    model = User 
+
+    def get_object(self, queryset=None):
+        user = super().get_object(queryset)
+        cart_item_pk = self.request.POST['cart_item_pk']
+        cart_item = user.cart.cart_item.get(id=cart_item_pk)
+        return cart_item
+    
+    def get_success_url(self):
+        user_pk = self.request.user.id
+        return reverse_lazy('cart', kwargs={'pk': user_pk})
+
 
 class OrderView(View):
     def post(self, *args, **kwargs):

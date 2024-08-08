@@ -5,12 +5,28 @@
 {% block content %}
 
 <div class="container">
+    <div class="mx-auto text-center mt-5 mb-5" style="max-width: 300px">
+      <p>カテゴリを絞って商品を検索↓</p>
+      <form action="" method="GET" class="row">
+        <div class="col-8">
+          {{form.category}}
+        </div>
+        <div class="col-4">
+          <button type="submit" class="btn bg-dark text-white me-3">検索</button>
+        </div>
+      </form>
+    </div>
+
     <div class="row mt-4 justify-content-center">
 
       {% for item in item_list %}
         
         <div class="col-3 px-4 mt-5">
           <div class="card">
+            <!-- Category badge -->
+            <div class="badge bg-white text-dark position-absolute" style="top:0.5rem; right:0.5rem">
+              {{item.category}}
+            </div>
 
             {% if item.image %}
             <img src="{{item.image.url}}" class="card-img-top" alt="{{item.name}}" style="height:150px; object-fit:cover;">
@@ -31,101 +47,49 @@
       <p>商品がありません。</p>
 
       {% endfor %}
-        
-        <!-- <div class="col-3 px-4 mt-5">
-            <div class="card">
-                <img src="..." class="card-img-top" alt="...">
-                <div class="card-body text-center">
-                  <h5 class="card-title">商品名</h5>
-                  <p class="card-text">1000円</p>
-                  <a href="#" class="btn btn-outline-secondary mt-4">商品詳細</a>
-                </div>
-              </div>
-        </div>
-        
-        <div class="col-3 px-4 mt-5">
-            <div class="card">
-                <img src="..." class="card-img-top" alt="...">
-                <div class="card-body text-center">
-                  <h5 class="card-title">商品名</h5>
-                  <p class="card-text">1000円</p>
-                  <a href="#" class="btn btn-outline-secondary mt-4">商品詳細</a>
-                </div>
-              </div>
-        </div>
-
-        <div class="col-3 px-4 mt-5">
-            <div class="card">
-                <img src="..." class="card-img-top" alt="...">
-                <div class="card-body text-center">
-                  <h5 class="card-title">商品名</h5>
-                  <p class="card-text">1000円</p>
-                  <a href="#" class="btn btn-outline-secondary mt-4">商品詳細</a>
-                </div>
-              </div>
-        </div>
-
-        <div class="col-3 px-4 mt-5">
-          <div class="card">
-              <img src="" class="card-img-top" alt="...">
-              <div class="card-body text-center">
-                <h5 class="card-title">商品名</h5>
-                <p class="card-text">1000円</p>
-                <a href="#" class="btn btn-outline-secondary mt-4">商品詳細</a>
-              </div>
-            </div>
-      </div> -->
-
+      
     </div>
 
-    <!-- <div class="row mt-4 justify-content-center">
-        
-        <div class="col-3 px-4">
-            <div class="card">
-                <img src="" class="card-img-top" alt="...">
-                <div class="card-body text-center">
-                  <h5 class="card-title">商品名</h5>
-                  <p class="card-text">1000円</p>
-                  <a href="#" class="btn btn-outline-secondary mt-4">商品詳細</a>
-                </div>
-              </div>
-        </div>
-        
-        <div class="col-3 px-4">
-            <div class="card">
-                <img src="..." class="card-img-top" alt="...">
-                <div class="card-body text-center">
-                  <h5 class="card-title">商品名</h5>
-                  <p class="card-text">1000円</p>
-                  <a href="#" class="btn btn-outline-secondary mt-4">商品詳細</a>
-                </div>
-              </div>
-        </div>
-        
-        <div class="col-3 px-4">
-            <div class="card">
-                <img src="..." class="card-img-top" alt="...">
-                <div class="card-body text-center">
-                  <h5 class="card-title">商品名</h5>
-                  <p class="card-text">1000円</p>
-                  <a href="#" class="btn btn-outline-secondary mt-4">商品詳細</a>
-                </div>
-              </div>
-        </div>
+    <!--Pagenation-->
+    <nav aria-label="Page navigation">
+      <ul class="pagination justify-content-center mt-5">
+        <!--Previous page-->
+        {% if page_obj.has_previous %}
+          <li class="page-item">
+            <a href="?page={{page_obj.previous_page_number}}" class="page-link" aria-label="Previous page">&laquo;</a>
+          </li>
+        {% else %}
+          <li class="page-item disabled">
+            <a class="page-link"><span aria-hidden="true">&laquo;</span></a>
+          </li>
+        {% endif %}
 
-        <div class="col-3 px-4">
-            <div class="card">
-                <img src="..." class="card-img-top" alt="...">
-                <div class="card-body text-center">
-                  <h5 class="card-title">商品名</h5>
-                  <p class="card-text">1000円</p>
-                  <a href="#" class="btn btn-outline-secondary mt-4">商品詳細</a>
-                </div>
-              </div>
-        </div>
+        <!--Number pages-->
+        {% for page_num in page_obj.paginator.page_range %}
+          {% if page_num == page_obj.number %}
+            <li class="page-item disabled">
+              <a class="page-link">{{page_num}}</a>
+            </li>
+          {% else %}
+            <li class="page-item">
+              <a href="?page={{page_num}}" class="page-link">{{page_num}}</a>
+            </li>
+          {% endif %}
+        {% endfor %}
 
-    </div> -->
-
+        <!--Next page-->
+        {% if page_obj.has_next %}
+          <li class="page-item">
+            <a href="?page={{page_obj.next_page_number}}" class="page-link" aria-label="Next page">&raquo;</a>
+          </li>
+        {% else %}
+          <li class="page-item disabled">
+            <a class="page-link"><span aria-hidden="true">&raquo;</span></a>
+          </li>
+        {% endif %}
+      </ul>
+    </nav>
+    
 </div>
 
 {% endblock content %}

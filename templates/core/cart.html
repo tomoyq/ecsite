@@ -24,7 +24,12 @@
                 <td>{{cart_item.item.name}}</td>
                 <td>{{cart_item.quantity}}</td>
                 <td>{{cart_item.item.price}}</td>
-                <td>{{cart_item.total_price}}</td>
+                <td>{{cart_item.total_price}}円
+                    <form action="{% url 'delete_cart_item' user.id %}" method="post" class="d-inline">{% csrf_token %}
+                        <input type="hidden" name="cart_item_pk" value="{{cart_item.id}}">
+                        <button type="submit" class="btn btn-warning btn-sm ms-3">削除</button>
+                    </form>
+                </td>
             </tr>
             {% endfor %}
             </tbody>
@@ -33,7 +38,7 @@
                 <th></th>
                 <td></td>
                 <td></td>
-                <td>総額:<span>{{cart.total_price}}</span></td>
+                <td>総額:<span>{{cart.total_price}}円</span></td>
             </tbody>
 
         </table>
